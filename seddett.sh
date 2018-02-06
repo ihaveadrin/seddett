@@ -38,10 +38,14 @@ sleep 0.5s
 
 # loading of the sed scripts
 # either this or putting a goddamn big string...
-cat >$tagstart <<EOF
+cat <<EOF >$tagstart 
+s/^style$/style type="text\/css"/
+s/^script$/script type="text\/javascript"/
 s/\[\(.*\)=\(.*\)\]/ \1="\2" /g
-s/\#\([[:alnum:]]*\)/ id="\1" /
-s/\.\([[:alnum:]]*\)/ class="\1" /
+s/=\(.*\)\]\[/="\1" /g
+s/\#\(.*\)\#/ id="\1" /
+s/k\#\(.*\)\#/ id="\1" name="\1" /
+s/\.\(.*\)\./ class="\1" /
 s/^/</
 s/$/>/
 s/ >/>/
